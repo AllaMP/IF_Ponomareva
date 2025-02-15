@@ -1,40 +1,28 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.codeborne.selenide.SelenideElement;
 
-import java.time.Duration;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$x;
+
 
 public class LoginPage {
-    private final WebDriver driver;
-
-    @FindBy(xpath = "//input[@name='os_username']")
-    private WebElement usernameField;
-
-    @FindBy(xpath = "//input[@name='os_password']")
-    private WebElement passwordField;
-
-    @FindBy(xpath = "//input[@class='aui-button aui-button-primary']")
-    private WebElement loginButton;
-
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
+    private final SelenideElement usernameField = $x("//input[@id='login-form-username']").
+            as("Имя пользователя");
+    private final SelenideElement passwordField = $x("//input[@name='os_password']").as("Пароль");
+    private final SelenideElement loginButton = $x("//input[@class='aui-button aui-button-primary']").
+            as("Войти");
+    private final SelenideElement profile = $x("//a[@id='header-details-user-fullname']").
+            as("Пользовательский профиль");
 
     public void login(String username, String password) {
-        usernameField.sendKeys(username);
-        passwordField.sendKeys(password);
+        usernameField.shouldBe(visible).setValue(username);
+        passwordField.shouldBe(visible).setValue(password);
         loginButton.click();
+        profile.shouldBe(visible);
+    }
 
-        // Проверка успешного входа
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        WebElement userProfile = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("header-details-user-fullname")));
-        assert userProfile.isDisplayed() : "Пользователь не вошел в систему!";
+    public boolean isDisplayed() {
+        return usernameField.isDisplayed();
     }
 }

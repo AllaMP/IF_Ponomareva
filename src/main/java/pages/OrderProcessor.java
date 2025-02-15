@@ -1,92 +1,63 @@
 package pages;
 
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.codeborne.selenide.SelenideElement;
 
-import java.time.Duration;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.*;
 
 public class OrderProcessor {
-    private final WebDriver driver;
 
-    @FindBy(xpath = "//input[@name='searchString']")
-    private WebElement usernameField;
+    private final SelenideElement usernameField = $x("//input[@name='searchString']").as("Поле поиска");
+    private final SelenideElement selectTest = $x("//li[@original-title='TestSeleniumATHomework']").
+            as("Элемент 'TestSeleniumATHomework'");
+    private static final SelenideElement statusElement = $x("//span[contains(@class, " +
+            "'jira-issue-status-lozenge') " +
+            "and contains(text(), 'Сделать')]").as("Элемент статуса");
+    private static final SelenideElement versionElement = $x("//span[@id='fixVersions-field']/a").
+            as("Элемент версии");
 
-    @FindBy(xpath = "//li[@original-title='TestSeleniumATHomework']")
-    private WebElement selectTest;
+    public static String getStatusElement() {
+        return statusElement.getText();
+    }
 
-    @FindBy(xpath = "//span[contains(@class, 'jira-issue-status-lozenge') and contains(text(), 'Сделать')]")
-    private WebElement statusElement;
-
-    @FindBy(xpath = "//span[@id='fixVersions-field']/a")
-    private WebElement versionElement;
-
-    public OrderProcessor(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public static String getVersionElement() {
+        return versionElement.getText();
     }
 
     public void order() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-
         try {
-            usernameField.sendKeys("TestSeleniumATHomework");
-            wait.until(ExpectedConditions.elementToBeClickable(selectTest));
-            selectTest.click();
+            usernameField.shouldBe(visible, enabled).setValue("TestSeleniumATHomework");
+            selectTest.shouldBe(visible, enabled).click();
 
-            // Проверка версии
             checkVersion();
-            // Проверка статуса
             checkStatus();
 
-        } catch (TimeoutException e) {
-            System.out.println("Ошибка: элемент не найден или не кликабелен.");
-        } catch (NoSuchElementException e) {
-            System.out.println("Ошибка: элемент не найден в DOM.");
         } catch (Exception e) {
-            System.out.println("Произошла непредвиденная ошибка.");
+            System.out.println("Произошла ошибка: " + e.getMessage());
         }
     }
 
     public void checkVersion() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         try {
-            wait.until(ExpectedConditions.visibilityOf(versionElement));
+            versionElement.shouldBe(visible);
             String versionText = versionElement.getText();
             if ("Version 2.0".equals(versionText)) {
                 System.out.println("Версия корректна: " + versionText);
             } else {
                 System.out.println("Ошибка: ожидаемая версия 'Version 2.0', но найдена '" + versionText + "'");
             }
-        } catch (TimeoutException e) {
-            System.out.println("Ошибка: элемент версии не найден или не видим.");
-        } catch (NoSuchElementException e) {
-            System.out.println("Ошибка: элемент версии не найден в DOM.");
         } catch (Exception e) {
-            System.out.println("Произошла непредвиденная ошибка при проверке версии.");
+            System.out.println("Ошибка при проверке версии: " + e.getMessage());
         }
     }
 
     public void checkStatus() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         try {
-            wait.until(ExpectedConditions.visibilityOf(statusElement));
+            statusElement.shouldBe(visible);
             String statusText = statusElement.getText();
             System.out.println("Статус корректен: " + statusText);
-        } catch (TimeoutException e) {
-            System.out.println("Ошибка: элемент статуса не найден или не видим.");
-
-        } catch (NoSuchElementException e) {
-            System.out.println("Ошибка: элемент статуса не найден в DOM.");
         } catch (Exception e) {
-            System.out.println("Произошла непредвиденная ошибка при проверке статуса.");
+            System.out.println("Ошибка при проверке статуса: " + e.getMessage());
         }
     }
-
-
 }
