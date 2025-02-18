@@ -9,14 +9,14 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ChangeStatusTask {
-    private final SelenideElement workButton = $x("//*[@id='action_id_21']").as("Кнопка 'В работе'");
-    private final SelenideElement businessProcessButton = $x("//a[@id='opsbar-transitions_more']").
+    public static final SelenideElement workButton = $x("//*[@id='action_id_21']").as("Кнопка 'В работе'");
+    public static final SelenideElement businessProcessButton = $x("//a[@id='opsbar-transitions_more']").
             as("Кнопка 'Бизнес-процесс'");
-    private final SelenideElement readyButton = $x("//aui-item-link[@id='action_id_31']").
+    public static final SelenideElement readyButton = $x("//aui-item-link[@id='action_id_31']").
             as("Кнопка 'Выполнено'");
-    private final SelenideElement closeButton = $x("//button[@class='aui-close-button']").
+    public static final SelenideElement closeButton = $x("//button[@class='aui-close-button']").
             as("Кнопка 'Выполнено'");
-    private static final SelenideElement statusChange = $x("//span[@id='status-val']").
+    public static final SelenideElement statusChange = $x("//span[@id='status-val']").
             as("Статус 'В РАБОТЕ'");
 
     public static String getstatusChange() {

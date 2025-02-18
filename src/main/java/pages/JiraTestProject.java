@@ -9,9 +9,9 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class JiraTestProject {
 
-    private static final SelenideElement browseLink = $x("//a[@id='browse_link']").
+    public static final SelenideElement browseLink = $x("//a[@id='browse_link']").
             as("Ссылка на проекты");
-    private static final SelenideElement testProjectLink = $x("//a[@id='admin_main_proj_link_lnk']").
+    public static final SelenideElement testProjectLink = $x("//a[@id='admin_main_proj_link_lnk']").
             as("Ссылка на проект 'Test'");
     private static final SelenideElement openTask = $x("//span[@id='issues-subnavigation-title']").
             as("Ссылка на проект 'Test'");
@@ -29,6 +29,7 @@ public class JiraTestProject {
     }
 
     public void openTestProject() {
+
         testProjectLink.shouldBe(visible, Duration.ofSeconds(10)).click();
     }
 

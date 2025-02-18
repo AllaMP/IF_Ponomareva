@@ -14,7 +14,7 @@ public class NumberOfTasks {
 
     private int totalTasks;
 
-    private int extractTotalTasks(String text) {
+    public static int extractTotalTasks(String text) {
         Pattern pattern = Pattern.compile("из (\\d+)");
         Matcher matcher = pattern.matcher(text);
         if (matcher.find()) {
