@@ -15,6 +15,7 @@ public class LoginPage {
     private final SelenideElement profile = $x("//a[@id='header-details-user-fullname']").
             as("Пользовательский профиль");
 
+
     public void login(String username, String password) {
         usernameField.shouldBe(visible).setValue(username);
         passwordField.shouldBe(visible).setValue(password);
