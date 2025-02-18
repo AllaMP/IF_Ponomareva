@@ -17,6 +17,8 @@ import static com.codeborne.selenide.Selenide.open;
 import static pages.CreateNewTest.*;
 import static pages.JiraTestProject.*;
 import static pages.ChangeStatusTask.*;
+import static pages.LoginPage.outButton;
+import static pages.LoginPage.profilePersonal;
 
 public class CreateNewTestSteps {
     int totalTasks1;
@@ -54,7 +56,7 @@ public class CreateNewTestSteps {
 
     @И("заполняю поле 'Тема'")
     public void fillSummaryField() {
-        summaryField.shouldBe(Condition.visible, Duration.ofSeconds(10)).setValue("ALLA");
+        summaryField.shouldBe(Condition.visible, Duration.ofSeconds(10)).setValue("Очень важная задача");
     }
 
     @И("выбораю 'Seriousnes'")
@@ -146,5 +148,15 @@ public class CreateNewTestSteps {
     public void selectDoneStatus() {
         readyButton.shouldBe(visible, Duration.ofSeconds(10));
         readyButton.shouldBe(enabled).click();
+    }
+
+    @И("нажимаю на иконку профиля")
+    public void personalProfile() {
+        profilePersonal.click();
+    }
+
+    @И("кликаю на 'Выйти'")
+    public void logOutButton() {
+        outButton.click();
     }
 }

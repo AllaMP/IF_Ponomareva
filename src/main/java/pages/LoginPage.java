@@ -2,6 +2,8 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -14,6 +16,10 @@ public class LoginPage {
             as("Войти");
     private final SelenideElement profile = $x("//a[@id='header-details-user-fullname']").
             as("Пользовательский профиль");
+    public static final SelenideElement profilePersonal = $x("//a[@id='header-details-user-fullname']").
+            as("Аватар личного кабинета");
+    public static final SelenideElement outButton = $x("//a[@id='log_out']").
+            as("Выход");
 
 
     public void login(String username, String password) {
@@ -26,4 +32,14 @@ public class LoginPage {
     public boolean isDisplayed() {
         return usernameField.isDisplayed();
     }
+
+    public void openProfilePersonal() {
+        profilePersonal.click();
+    }
+
+    public void openOutButton() {
+        outButton.click();
+    }
+
+
 }

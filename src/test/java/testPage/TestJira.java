@@ -6,6 +6,12 @@
 //import pages.*;
 //import webHooks.WebHooks;
 //
+//import java.time.Duration;
+//
+//import static com.codeborne.selenide.Condition.visible;
+//import static pages.LoginPage.outButton;
+//import static pages.LoginPage.profilePersonal;
+//
 //public class TestJira extends WebHooks {
 //
 //    public static String username;
@@ -61,4 +67,24 @@
 //        Assertions.assertEquals("СДЕЛАТЬ", OrderProcessor.getStatusElement());
 //        Assertions.assertEquals("Version 2.0", OrderProcessor.getVersionElement());
 //    }
+//
+//    @DisplayName("Выход из ЛК")
+//    @Test
+//    public void ProfilePersonal() {
+//        loginPage.login(username, password);
+//        loginPage.openProfilePersonal();
+//        profilePersonal.shouldBe(visible, Duration.ofSeconds(10)).click();
+//    }
+//
+//    @DisplayName("Выход")
+//    @Test
+//    public void outButton() {
+//        loginPage.login(username, password);
+//        loginPage.openProfilePersonal();
+//        profilePersonal.shouldBe(visible, Duration.ofSeconds(10)).click();
+//        outButton.click();
+//    }
+//
+//
+//
 //}

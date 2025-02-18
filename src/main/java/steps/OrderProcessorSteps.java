@@ -1,12 +1,15 @@
 package steps;
 
 import io.cucumber.java.ru.Дано;
+import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import pages.LoginPage;
 import utils.ConfigLoader;
 
 import static com.codeborne.selenide.Selenide.open;
+import static pages.LoginPage.outButton;
+import static pages.LoginPage.profilePersonal;
 import static pages.OrderProcessor.*;
 
 public class OrderProcessorSteps {
@@ -44,5 +47,15 @@ public class OrderProcessorSteps {
     @Тогда("Статус корректен")
     public void statusIsCorrect() {
         checkStatus();
+    }
+
+    @Тогда("нажимаю на аватар профиля")
+    public void profilePersonal() {
+        profilePersonal.click();
+    }
+
+    @И("нажимаю на 'Выйти'")
+    public void logOut() {
+        outButton.click();
     }
 }

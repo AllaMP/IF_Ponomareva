@@ -56,7 +56,7 @@
 //
 //        Selenide.open(url);
 //
-//        WebDriverRunner.getWebDriver().manage().window().maximize();
+////        WebDriverRunner.getWebDriver().manage().window().maximize();
 //
 //        TestJira.username = username;
 //        TestJira.password = password;
