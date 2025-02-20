@@ -20,6 +20,8 @@ public class LoginPage {
             as("Аватар личного кабинета");
     public static final SelenideElement outButton = $x("//a[@id='log_out']").
             as("Выход");
+    public static final SelenideElement logOutPage = $x("//div[@class='aui-page-header-main']").
+            as("Выход из системы Jira");
 
 
     public void login(String username, String password) {

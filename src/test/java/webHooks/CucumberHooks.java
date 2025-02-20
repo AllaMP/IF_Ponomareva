@@ -1,6 +1,7 @@
 package webHooks;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import testPage.CucumberRunnerTest;
@@ -14,32 +15,16 @@ public class CucumberHooks {
 
     @Before
     public static void initBrowser() {
-        Properties properties = new Properties();
-        try {
-            InputStream input = CucumberRunnerTest.class.getClassLoader().getResourceAsStream("config.properties");
-            if (input == null) {
-                throw new RuntimeException("Файл config.properties не найден!");
-            }
-            try {
-                properties.load(input);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Ошибка при загрузке config.properties", e);
-        }
-
         String browser = properties.getProperty("browser", "").toLowerCase();
+        System.setProperty("selenide.browser", browser);
 
-        System.setProperty("selenide.browse", properties.getProperty("firefox"));
-
-        if ("firefox".equals(browser)) {
+        if (browser.equals("firefox")) {
             Configuration.browser = "firefox";
             String firefoxDriverPath = properties.getProperty("firefox");
             if (firefoxDriverPath != null) {
-                System.setProperty("webdriver.firefox.driver", firefoxDriverPath);
+                System.setProperty("webdriver.gecko.driver", firefoxDriverPath);
             }
-        } else if ("chrome".equals(browser)) {
+        } else if (browser.equals("chrome")) {
             Configuration.browser = "chrome";
             String chromeDriverPath = properties.getProperty("chrome");
             if (chromeDriverPath != null) {
@@ -50,9 +35,29 @@ public class CucumberHooks {
         }
     }
 
+    private static final Properties properties;
+
+    static {
+        properties = configProperties();
+    }
+
+    public static Properties configProperties() {
+        Properties properties = new Properties();
+        try {
+            InputStream input = CucumberRunnerTest.class.getClassLoader().getResourceAsStream("config.properties");
+            if (input == null) {
+                throw new RuntimeException("Файл config.properties не найден!");
+            }
+            properties.load(input);
+        } catch (IOException ex) {
+            throw new RuntimeException("Ошибка при загрузке config.properties", ex);
+        }
+        return properties;
+    }
+
     @After
     public static void closeBrowser() {
+        WebDriverRunner.closeWebDriver();
     }
 }
-
 

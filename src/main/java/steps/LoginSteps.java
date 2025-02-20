@@ -7,19 +7,21 @@ import io.cucumber.java.ru.Тогда;
 import pages.LoginPage;
 import utils.ConfigLoader;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static pages.LoginPage.outButton;
 import static pages.LoginPage.profilePersonal;
+import static pages.LoginPage.logOutPage;
 
 public class LoginSteps {
 
-    @Дано("нахожусь на странице входа")
+    @Дано("Нахожусь на странице входа")
     public void authorizationPage() {
         String baseUrl = ConfigLoader.getBaseUrl();
         open(baseUrl);
     }
 
-    @Когда("ввожу логин и пароль")
+    @Когда("Ввожу валидные логин и пароль")
     public void loginEnter() {
         String username = ConfigLoader.getUsername();
         String password = ConfigLoader.getPassword();
@@ -27,22 +29,27 @@ public class LoginSteps {
         loginPage.login(username, password);
     }
 
-    @Тогда("перенаправлен на главную страницу ЛК")
+    @Тогда("Перенаправляюсь на главную страницу Личного кабинета")
     public void profilePage() {
     }
 
-    @И("найти вкладку 'Проекты' в хедере страницы")
+    @И("Нахожу вкладку 'Проекты' в хедере страницы")
     public void profileEnter() {
     }
 
-    @И("нажать на аватар профиля")
+    @И("Нажимаю на аватар профиля в верхней панели")
     public void profilePerson() {
         profilePersonal.click();
     }
 
-    @И("нажать на 'Выйти'")
+    @И("Выбираю пункт 'Выйти' из выпадающего меню")
     public void outLButton() {
         outButton.click();
+    }
+
+    @Тогда("Успешно выхожу из системы на страницу входа")
+    public void logOutPage() {
+        logOutPage.shouldBe(visible);
     }
 }
 

@@ -7,14 +7,14 @@ import io.cucumber.java.ru.Тогда;
 import pages.LoginPage;
 import utils.ConfigLoader;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.open;
-import static pages.LoginPage.outButton;
-import static pages.LoginPage.profilePersonal;
+import static pages.LoginPage.*;
 import static pages.OrderProcessor.*;
 
 public class OrderProcessorSteps {
 
-    @Дано("логинюсь на странице входа для поиска")
+    @Дано("Ввожу логин и пароль на странице авторизации")
     public void authorizationPageForSearch() {
         String baseUrl = ConfigLoader.getBaseUrl();
         open(baseUrl);
@@ -24,38 +24,43 @@ public class OrderProcessorSteps {
         loginPage.login(username, password);
     }
 
-    @Дано("Ищу и переход к тесту 'TestSeleniumATHomework'")
+    @Дано("Нахожу тест 'TestSeleniumATHomework'")
     public void searchTestSeleniumATHomework() {
         order();
     }
 
-    @Когда("ожидаемая версия 'Version 2.0'")
+    @Когда("Фиксирую версию 'Version 2.0'")
     public void checkExpectedVersion() {
         getVersionElement();
     }
 
-    @Тогда("Версия корректна")
+    @Тогда("Подтверждаю, что версия корректна")
     public void versionIsCorrect() {
         checkVersion();
     }
 
-    @Когда("cтатус 'Сделать'")
+    @Когда("Фиксирую cтатус 'Сделать'")
     public void checkStatusDo() {
         getStatusElement();
     }
 
-    @Тогда("Статус корректен")
+    @Тогда("Подтверждаю, что статус корректен")
     public void statusIsCorrect() {
         checkStatus();
     }
 
-    @Тогда("нажимаю на аватар профиля")
+    @Тогда("Нажимаю на аватар профиля")
     public void profilePersonal() {
         profilePersonal.click();
     }
 
-    @И("нажимаю на 'Выйти'")
+    @И("Нажимаю на 'Выйти'")
     public void logOut() {
         outButton.click();
+    }
+
+    @Тогда("Возвращаюсь на страницу входа")
+    public void logOutPage() {
+        logOutPage.shouldBe(visible);
     }
 }

@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CreateNewTest {
-    public static int fistCointer;
+    public static int fistCounter;
     public static final SelenideElement createButton = $x("//a[@id='create_link']").
             as("Кнопка создания задачи");
     public static final SelenideElement summaryField = $x("//input[@id='summary']").
@@ -51,11 +51,11 @@ public class CreateNewTest {
     }
 
     public void create(int oldCounter) {
-        fistCointer = oldCounter;
+        fistCounter = oldCounter;
         try {
             createButton.shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
 
-            summaryField.shouldBe(Condition.visible, Duration.ofSeconds(10)).setValue("ALLA");
+            summaryField.shouldBe(Condition.visible, Duration.ofSeconds(10)).setValue("HardWork");
 
             selectSeriousness.shouldBe(Condition.visible, Duration.ofSeconds(10)).selectOptionByValue("10103");
 
