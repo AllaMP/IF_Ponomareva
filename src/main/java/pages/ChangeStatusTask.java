@@ -23,11 +23,6 @@ public class ChangeStatusTask {
     public static final SelenideElement selectTask = $x("//li[@original-title='HardWork']").
             as("Элемент 'HardWork'");
 
-
-    public static String getstatusChange() {
-        return statusChange.getText();
-    }
-
     public void status() {
         try {
             usernameField.shouldBe(visible, enabled).setValue("HardWork");

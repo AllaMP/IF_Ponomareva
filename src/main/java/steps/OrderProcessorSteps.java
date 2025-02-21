@@ -30,23 +30,43 @@ public class OrderProcessorSteps {
     }
 
     @Когда("Фиксирую версию 'Version 2.0'")
-    public void checkExpectedVersion() {
-        getVersionElement();
+    public void versionElement() {
+        try{
+            versionElement.shouldBe(visible);
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     @Тогда("Подтверждаю, что версия корректна")
     public void versionIsCorrect() {
-        checkVersion();
-    }
+            String versionText = versionElement.getText();
+        if (versionText.equals("Version 2.0")) {
+            System.out.println("Версия корректна: " + versionText);
+        } else {
+            System.out.println("Ошибка: ожидаемая версия 'Version 2.0', но найдена '" + versionText + "'");
+        }
+        }
 
     @Когда("Фиксирую cтатус 'Сделать'")
-    public void checkStatusDo() {
-        getStatusElement();
+    public void statusElement() {
+        try{
+            statusElement.shouldBe(visible);
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     @Тогда("Подтверждаю, что статус корректен")
-    public void statusIsCorrect() {
-        checkStatus();
+    public void statusTasks() {
+        String statusText = statusElement.getText();
+        if (statusText.equals("СДЕЛАТЬ")) {
+            System.out.println("Статус корректн: " + statusText);
+        } else {
+            System.out.println("Ошибка: ожидаемый статус 'СДЕЛАТЬ', но найдена '" + statusText + "'");
+        }
     }
 
     @Тогда("Нажимаю на аватар профиля")

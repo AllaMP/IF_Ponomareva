@@ -5,16 +5,25 @@ import com.codeborne.selenide.WebDriverRunner;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import testPage.CucumberRunnerTest;
+import utils.ConfigLoader;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import static com.codeborne.selenide.Selenide.open;
+
 
 public class CucumberHooks {
 
+    private static final Properties properties;
+
+    static {
+        properties = configProperties();
+    }
+
     @Before
-    public static void initBrowser() {
+    public void initBrowser() {
         String browser = properties.getProperty("browser", "").toLowerCase();
         System.setProperty("selenide.browser", browser);
 
@@ -33,12 +42,11 @@ public class CucumberHooks {
         } else {
             throw new IllegalArgumentException("Неверный браузер: " + browser);
         }
-    }
 
-    private static final Properties properties;
+        String baseUrl = ConfigLoader.getBaseUrl();
+        open(baseUrl);
 
-    static {
-        properties = configProperties();
+        WebDriverRunner.getWebDriver().manage().window().maximize();
     }
 
     public static Properties configProperties() {
@@ -56,7 +64,7 @@ public class CucumberHooks {
     }
 
     @After
-    public static void closeBrowser() {
+    public void closeBrowser() {
         WebDriverRunner.closeWebDriver();
     }
 }

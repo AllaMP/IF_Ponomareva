@@ -7,7 +7,7 @@ import static io.cucumber.junit.platform.engine.Constants.*;
 
 @Suite
 @IncludeEngines("cucumber")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "steps,webHooks")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "webHooks,steps")
 @ConfigurationParameter(key = FEATURES_PROPERTY_NAME, value = "src/test/resources")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
 @ConfigurationParameter(key = Constants.EXECUTION_DRY_RUN_PROPERTY_NAME, value = "false")

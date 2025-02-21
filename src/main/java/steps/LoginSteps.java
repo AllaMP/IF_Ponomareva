@@ -7,18 +7,19 @@ import io.cucumber.java.ru.Тогда;
 import pages.LoginPage;
 import utils.ConfigLoader;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
-import static pages.LoginPage.outButton;
-import static pages.LoginPage.profilePersonal;
-import static pages.LoginPage.logOutPage;
+import static pages.JiraTestProject.projectLink;
+import static pages.LoginPage.*;
 
 public class LoginSteps {
 
     @Дано("Нахожусь на странице входа")
     public void authorizationPage() {
-        String baseUrl = ConfigLoader.getBaseUrl();
-        open(baseUrl);
+        authPage.shouldBe(visible);
+
     }
 
     @Когда("Ввожу валидные логин и пароль")
@@ -31,10 +32,7 @@ public class LoginSteps {
 
     @Тогда("Перенаправляюсь на главную страницу Личного кабинета")
     public void profilePage() {
-    }
-
-    @И("Нахожу вкладку 'Проекты' в хедере страницы")
-    public void profileEnter() {
+        profile.shouldBe(visible);
     }
 
     @И("Нажимаю на аватар профиля в верхней панели")

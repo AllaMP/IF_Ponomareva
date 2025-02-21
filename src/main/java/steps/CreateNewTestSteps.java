@@ -34,7 +34,7 @@ public class CreateNewTestSteps {
 
     @Когда("Нажимаю на вкладку 'Проекты'")
         public void openBrowseLink() {
-            browseLink.shouldBe(visible, Duration.ofSeconds(10)).click();
+            projectLink.shouldBe(visible, Duration.ofSeconds(10)).click();
     }
 
     @Тогда("Перехожу в проект 'Тест'")
