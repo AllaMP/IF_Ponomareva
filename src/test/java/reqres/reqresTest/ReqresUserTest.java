@@ -58,9 +58,12 @@ public class ReqresUserTest {
 
         Assertions.assertNotNull(userResponse.getId(), "ID пользователя не должен быть null");
         Assertions.assertNotNull(userResponse.getCreatedAt(), "Дата создания не должна быть null");
-        Assertions.assertEquals(201, response.getStatusCode(), "Статус ответа должен быть 201 (Created)");
-        Assertions.assertEquals("Tomato", userResponse.getName(), "Имя пользователя не соответствует ожидаемому");
-        Assertions.assertEquals("Eat maket", userResponse.getJob(), "Работа пользователя не соответствует ожидаемой");
+        Assertions.assertEquals(201, response.getStatusCode(),
+                "Статус ответа должен быть 201 (Created)");
+        Assertions.assertEquals("Tomato", userResponse.getName(),
+                "Имя пользователя не соответствует ожидаемому");
+        Assertions.assertEquals("Eat maket", userResponse.getJob(),
+                "Работа пользователя не соответствует ожидаемой");
 
         System.out.println("Статус ответа: " + statusCode);
         System.out.println("\nДанные ответа:");
