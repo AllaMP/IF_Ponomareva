@@ -2,10 +2,10 @@ package rickAndMorty.steps;
 
 import org.apache.http.HttpStatus;
 import rickAndMorty.api.movie.CharacterApi;
-import rickAndMorty.characterMovie.Result;
-import rickAndMorty.characterMovie.RickAndMortyCharacter;
-import rickAndMorty.characterMovie.RickAndMortyEpisode;
-import rickAndMorty.characterMovie.SingleCharacter;
+import rickAndMorty.characterMortySmith.Result;
+import rickAndMorty.characterMortySmith.RickAndMortyCharacter;
+import rickAndMorty.episode.RickAndMortyEpisode;
+import rickAndMorty.characterStranger.SingleCharacter;
 
 import java.util.List;
 import java.util.regex.Matcher;

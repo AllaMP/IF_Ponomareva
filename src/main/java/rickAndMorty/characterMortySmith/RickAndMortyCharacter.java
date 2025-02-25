@@ -1,4 +1,4 @@
-package rickAndMorty.characterMovie;
+package rickAndMorty.characterMortySmith;
 
 
 import lombok.Getter;
