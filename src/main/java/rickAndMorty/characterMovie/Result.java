@@ -1,13 +1,15 @@
 package rickAndMorty.characterMovie;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Result{
+@Setter
+@Getter
+public class Result {
     public int id;
-    @Getter
     public String name;
     public String status;
     public String species;
@@ -19,5 +21,4 @@ public class Result{
     public ArrayList<String> episode;
     public String url;
     public Date created;
-
 }

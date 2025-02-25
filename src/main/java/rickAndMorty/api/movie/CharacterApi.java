@@ -10,16 +10,16 @@ import static io.restassured.RestAssured.given;
 
 public class CharacterApi extends BaseApi {
 
-    public static final String RICKANDMORTY_URN = "/character";
+//    public static final String RICKANDMORTY_URN = "/character";
 
-    public ValidatableResponse getNameCharacter(String name) {
+    public ValidatableResponse getNameCharacter(String name,  String rickandmorty_urn) {
         return given()
                 .baseUri(EnvConstants.RICKANDMORTY_URL)
                 .filter(new RequestLoggingFilter())
                 .filter(new ResponseLoggingFilter())
                 .queryParam("name", name)
                 .when()
-                .get(RICKANDMORTY_URN + "/")
+                .get(rickandmorty_urn + "/")
                 .then();
     }
 }
