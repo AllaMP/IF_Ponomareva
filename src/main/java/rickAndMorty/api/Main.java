@@ -1,5 +1,5 @@
-package rickAndMorty.api;
-
-public class Main {
-
-}
+//package rickAndMorty.api;
+//
+//public class Main {
+//
+//}

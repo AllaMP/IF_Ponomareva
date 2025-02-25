@@ -1,8 +1,10 @@
 package rickAndMorty.characterMovie;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class Info {
     public int count;
     public int pages;
