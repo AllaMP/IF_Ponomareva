@@ -1,4 +1,4 @@
-package rickAndMorty.episode;
+package rickAndMorty.models.episode;
 
 import lombok.Getter;
 import lombok.Setter;

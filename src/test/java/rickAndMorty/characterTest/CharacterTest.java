@@ -3,10 +3,10 @@ package rickAndMorty.characterTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import rickAndMorty.characterMortySmith.Result;
-import rickAndMorty.characterMortySmith.RickAndMortyCharacter;
-import rickAndMorty.episode.RickAndMortyEpisode;
-import rickAndMorty.characterStranger.SingleCharacter;
+import rickAndMorty.models.characterMortySmith.Result;
+import rickAndMorty.models.characterMortySmith.RickAndMortyCharacter;
+import rickAndMorty.models.episode.RickAndMortyEpisode;
+import rickAndMorty.models.characterStranger.SingleCharacter;
 import rickAndMorty.steps.CharacterSteps;
 
 import java.util.List;

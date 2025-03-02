@@ -1,9 +1,9 @@
-package rickAndMorty.characterStranger;
+package rickAndMorty.models.characterStranger;
 
 import lombok.Getter;
 import lombok.Setter;
-import rickAndMorty.characterMortySmith.Location;
-import rickAndMorty.characterMortySmith.Origin;
+import rickAndMorty.models.characterMortySmith.Location;
+import rickAndMorty.models.characterMortySmith.Origin;
 
 import java.util.ArrayList;
 import java.util.Date;

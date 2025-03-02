@@ -1,11 +1,11 @@
-package rickAndMorty.characterMortySmith;
+package rickAndMorty.models.characterMortySmith;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class Location{
+public class Origin{
     public String name;
     public String url;
 }

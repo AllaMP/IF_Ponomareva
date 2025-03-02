@@ -1,4 +1,4 @@
-package rickAndMorty.characterMortySmith;
+package rickAndMorty.models.characterMortySmith;
 
 import lombok.Getter;
 import lombok.Setter;
