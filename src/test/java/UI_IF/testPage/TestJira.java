@@ -1,10 +1,10 @@
-package testPage;
+package UI_IF.testPage;
 
+import UI_IF.pages.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pages.*;
-import webHooks.WebHooks;
+import UI_IF.webHooks.WebHooks;
 
 public class TestJira extends WebHooks {
 

@@ -1,4 +1,4 @@
-package pages;
+package UI_IF.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;

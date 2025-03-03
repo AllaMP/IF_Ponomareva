@@ -1,4 +1,4 @@
-package utils;
+package UI_IF.utils;
 
 import com.codeborne.selenide.Configuration;
 

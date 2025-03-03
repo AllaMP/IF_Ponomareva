@@ -1,12 +1,12 @@
-package webHooks;
+package UI_IF.webHooks;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import testPage.TestJira;
-import utils.BrowserConfig;
-import utils.ConfigLoader;
+import UI_IF.testPage.TestJira;
+import UI_IF.utils.BrowserConfig;
+import UI_IF.utils.ConfigLoader;
 
 public class WebHooks {
 
