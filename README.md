@@ -1,4 +1,3 @@
-# ДЗ #3
 
 ## Browsers
 - Mozilla Firefox **135.0**

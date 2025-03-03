@@ -8,9 +8,6 @@ import webHooks.WebHooks;
 
 public class TestJira extends WebHooks {
 
-    public static String username;
-    public static String password;
-
     static LoginPage loginPage = new LoginPage();
     private final JiraTestProject jiraTestProject = new JiraTestProject();
     private final NumberOfTasks numberOfTasks = new NumberOfTasks();
@@ -18,24 +15,35 @@ public class TestJira extends WebHooks {
     private final ChangeStatusTask changeStatusTask = new ChangeStatusTask();
     private final OrderProcessor orderProcessor = new OrderProcessor();
 
+    private static String username;
+    private static String password;
 
-    @DisplayName("Аутентификация пользователя")
+    public static void setUsername(String username) {
+        TestJira.username = username;
+    }
+
+    public static void setPassword(String password) {
+        TestJira.password = password;
+    }
+
+
     @Test
+    @DisplayName("Аутентификация пользователя")
     public void testJiraLogin() {
         loginPage.login(username, password);
         Assertions.assertEquals("Проекты", JiraTestProject.getBrowseLink());
     }
 
-    @DisplayName("Переход в проект Тест")
     @Test
+    @DisplayName("Переход в проект Тест")
     public void testJiraProject() {
         loginPage.login(username, password);
         jiraTestProject.selectProject();
         Assertions.assertEquals("Открытые задачи", JiraTestProject.getOpenTask());
     }
 
-    @DisplayName("Создание бага+счетчик задач")
     @Test
+    @DisplayName("Создание бага+счетчик задач")
     public void CreateNewTest() {
         loginPage.login(username, password);
         jiraTestProject.selectProject();
@@ -44,8 +52,8 @@ public class TestJira extends WebHooks {
         Assertions.assertEquals("Test", CreateNewTest.getStatusTasks());
     }
 
-    @DisplayName("Изменение статуса")
     @Test
+    @DisplayName("Изменение статуса")
     public void ChangeStatusTask() {
         loginPage.login(username, password);
         jiraTestProject.selectProject();
@@ -53,8 +61,8 @@ public class TestJira extends WebHooks {
         Assertions.assertEquals("В РАБОТЕ",  ChangeStatusTask.getstatusChange());
     }
 
-    @DisplayName("Проверка задачи TestSeleniumATHomework")
     @Test
+    @DisplayName("Проверка задачи TestSeleniumATHomework")
     public void OrderProcessor() {
         loginPage.login(username, password);
         orderProcessor.order();
