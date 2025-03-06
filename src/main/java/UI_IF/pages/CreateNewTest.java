@@ -3,6 +3,7 @@ package UI_IF.pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 import java.util.regex.Matcher;
@@ -45,10 +46,12 @@ public class CreateNewTest {
     private static final SelenideElement statusTasks = $x("//a[@id='project-name-val']").
             as("Статус задачи");
 
+    @Step("Определить статус задачи")
     public static String getStatusTasks() {
         return statusTasks.getText();
     }
 
+    @Step("Создание задачи")
     public void create(int oldCounter) {
         try {
             createButton.shouldBe(Condition.visible, Duration.ofSeconds(10)).click();
@@ -93,6 +96,8 @@ public class CreateNewTest {
         }
     }
 
+
+    @Step("Нажать на кнопку, когда станет видимой")
     private void checkAndClickVisualButton(SelenideElement button) {
         String ariaPressed = button.getAttribute("aria-pressed");
         if (ariaPressed == null || "false".equals(ariaPressed)) {
@@ -100,6 +105,7 @@ public class CreateNewTest {
         }
     }
 
+    @Step("Переключение на iframe и ввод текста")
     private void fillTinyMCEField(SelenideElement tinymceIframe, String text) {
         switchTo().frame(tinymceIframe);
         SelenideElement tinyMCEBody = $("body");
@@ -107,6 +113,7 @@ public class CreateNewTest {
         switchTo().defaultContent();
     }
 
+    @Step("Определение количества задач")
     private int extractTotalTasks(String text) {
         Pattern pattern = Pattern.compile("из (\\d+)");
         Matcher matcher = pattern.matcher(text);

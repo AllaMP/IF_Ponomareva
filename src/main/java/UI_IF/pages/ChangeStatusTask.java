@@ -1,6 +1,7 @@
 package UI_IF.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 
@@ -19,10 +20,12 @@ public class ChangeStatusTask {
     private static final SelenideElement statusChange = $x("//span[@id='status-val']").
             as("Статус 'В РАБОТЕ'");
 
+    @Step("Определение текущего статуса")
     public static String getstatusChange() {
         return statusChange.getText();
     }
 
+    @Step("Изменение статуса")
     public void status() {
         try {
             workButton.shouldBe(visible, Duration.ofSeconds(20));

@@ -1,13 +1,14 @@
 package UI_IF.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
 
 public class LoginPage {
-    private final SelenideElement usernameField = $x("//input[@id='login-form-username']").
+    private final SelenideElement usernameField = $x("//input[@idы='login-form-username']").
             as("Имя пользователя");
     private final SelenideElement passwordField = $x("//input[@name='os_password']").as("Пароль");
     private final SelenideElement loginButton = $x("//input[@class='aui-button aui-button-primary']").
@@ -15,6 +16,7 @@ public class LoginPage {
     private final SelenideElement profile = $x("//a[@id='header-details-user-fullname']").
             as("Пользовательский профиль");
 
+    @Step("Ввести логин и пароль для входа в личный кабинет")
     public void login(String username, String password) {
         usernameField.shouldBe(visible).setValue(username);
         passwordField.shouldBe(visible).setValue(password);

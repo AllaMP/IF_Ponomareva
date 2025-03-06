@@ -1,6 +1,7 @@
 package UI_IF.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -16,14 +17,17 @@ public class OrderProcessor {
     private static final SelenideElement versionElement = $x("//span[@id='fixVersions-field']/a").
             as("Элемент версии");
 
+    @Step("Определение статуса")
     public static String getStatusElement() {
         return statusElement.getText();
     }
 
+    @Step("Определение версии")
     public static String getVersionElement() {
         return versionElement.getText();
     }
 
+    @Step("Поиск задачи TestSeleniumATHomework")
     public void order() {
         try {
             usernameField.shouldBe(visible, enabled).setValue("TestSeleniumATHomework");
@@ -37,6 +41,7 @@ public class OrderProcessor {
         }
     }
 
+    @Step("Сравнение версии")
     public void checkVersion() {
         try {
             versionElement.shouldBe(visible);
@@ -51,6 +56,7 @@ public class OrderProcessor {
         }
     }
 
+    @Step("Сравнение статуса")
     public void checkStatus() {
         try {
             statusElement.shouldBe(visible);

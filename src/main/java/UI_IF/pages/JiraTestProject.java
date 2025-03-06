@@ -1,6 +1,7 @@
 package UI_IF.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 
@@ -16,22 +17,27 @@ public class JiraTestProject {
     private static final SelenideElement openTask = $x("//span[@id='issues-subnavigation-title']").
             as("Ссылка на проект 'Test'");
 
+    @Step("Найти в хэдере вкладку 'Проекты'")
     public static String getBrowseLink() {
         return browseLink.getText();
     }
 
+    @Step("Найти в выпадающем списке проект Тест")
     public static String getOpenTask() {
         return openTask.getText();
     }
 
+    @Step("Ожидание отображения элемента и переход по ссылке")
     public void openBrowseLink() {
         browseLink.shouldBe(visible, Duration.ofSeconds(10)).click();
     }
 
+    @Step("Выбор проекта Тест")
     public void openTestProject() {
         testProjectLink.shouldBe(visible, Duration.ofSeconds(10)).click();
     }
 
+    @Step("Выбрать проект")
     public void selectProject() {
         openBrowseLink();
         openTestProject();
