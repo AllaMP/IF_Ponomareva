@@ -1,82 +1,123 @@
 package rickAndMorty.steps;
 
 import io.cucumber.java.ru.Дано;
-import io.cucumber.java.ru.Когда;
+import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.То;
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
-import rickAndMorty.api.movie.CharacterApi;
 import rickAndMorty.models.characterMortySmith.Result;
 import rickAndMorty.models.characterMortySmith.RickAndMortyCharacter;
 import rickAndMorty.models.characterStranger.SingleCharacter;
 import rickAndMorty.models.episode.RickAndMortyEpisode;
-
 import java.util.List;
+import io.qameta.allure.Step;
+import rickAndMorty.api.CharacterApi;
 
 public class StrangerCharacterInfoStep {
 
-    private static final CharacterApi characterApi = new CharacterApi();
-    private RickAndMortyCharacter rickAndMortyCharacter;
-    private Result characterResult;
-    private int maxEpisode;
+    private final CharacterApi characterApi = new CharacterApi();
     private RickAndMortyEpisode episode;
     private SingleCharacter lastCharacter;
+    private Result mortyCharacter;
+    private final int maxEpisode = Integer.parseInt(System.getenv("MAX_EPISODE"));
 
-    @Дано("Отправляю запрос на получение персонажа с именем 'Morty Smith'")
-    public void requestForCharacterNamed() {
-        String name = "Morty Smith";
-        rickAndMortyCharacter = characterApi.getNameCharacter(name)
-                .statusCode(200)  // Используем код 200 вместо HttpStatus.SC_OK
-                .extract()
-                .body()
-                .as(RickAndMortyCharacter.class);
-    }
-
-    @Когда("Получаю максимальный номер эпизода для персонажа")
-    public void getMaxEpisodeNumber() {
-        characterResult = rickAndMortyCharacter.getResults().get(0);
-        maxEpisode = getMaxEpisodeNumber(characterResult);
-    }
-
-    @Когда("Получаю последний эпизод")
+    @Дано("Получаю последний эпизод, в котором появлялся Morty Smith")
+    @Step("Получаю последний эпизод")
     public void getLastEpisode() {
         episode = characterApi.getEpisodeById(String.valueOf(maxEpisode))
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .extract()
                 .body()
                 .as(RickAndMortyEpisode.class);
     }
 
-    @Когда("Нахожу последнего персонажа из эпизода")
+    @И("Нахожу последнего персонажа из эпизода")
+    @Step("Нахожу последнего персонажа из эпизода")
     public void getLastCharacterFromLastEpisode() {
         List<String> characterUrls = episode.getCharacters();
         String lastCharacterUrl = characterUrls.get(characterUrls.size() - 1);
         lastCharacter = characterApi.getCharacterByUrl(lastCharacterUrl)
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .extract()
                 .body()
                 .as(SingleCharacter.class);
     }
 
     @То("Определяю имя последнего персонажа")
-    public void getNameLastCharacter() {
+    @Step("Определяю имя последнего персонажа")
+    public void checkLastCharacterName() {
         Assertions.assertNotNull(lastCharacter.getName(), "Имя последнего персонажа не определено");
     }
 
-    @То("Определяю расу и местоположение последнего персонажа")
-    public void getLastCharacterLocationAndSpecies() {
-        Assertions.assertNotNull(lastCharacter.getSpecies(), "Раса последнего персонажа не определена");
-        Assertions.assertNotNull(lastCharacter.getLocation().getName(), "Местоположение последнего персонажа не определено");
+    @И("Определяю расу и местоположение последнего персонажа")
+    @Step("Определяю расу и местоположение последнего персонажа")
+    public void checkLastCharacterDetails() {
+        Assertions.assertNotNull(lastCharacter.getSpecies(), "Раса не определена");
+        Assertions.assertNotNull(
+                lastCharacter.getLocation().getName(),
+                "Местоположение не определено"
+        );
     }
 
-    // Метод для получения максимального номера эпизода
-    private int getMaxEpisodeNumber(Result character) {
-        List<String> episodes = character.getEpisode();
-        int maxEpisode = 0;
-        for (String episodeUrl : episodes) {
-            String[] parts = episodeUrl.split("/");
-            int episodeNum = Integer.parseInt(parts[parts.length - 1]);
-            maxEpisode = Math.max(maxEpisode, episodeNum);
-        }
-        return maxEpisode;
+    @Дано("Запрашиваю персонажа с именем {string}")
+    @Step("Запрашиваю персонажа с именем {name}")
+    public void requestMortyCharacter(String name) {
+        RickAndMortyCharacter rickAndMortyCharacter = characterApi.getNameCharacter(name)
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .body()
+                .as(RickAndMortyCharacter.class);
+        this.mortyCharacter = rickAndMortyCharacter.getResults().get(0);
+    }
+
+    @То("Сравниваю расу и местоположение последнего персонажа с {string}")
+    @Step("Сравниваю расу и местоположение последнего персонажа с {name}")
+    public void compareCharacterDetails(String name) {
+        printMortySmithInfo(mortyCharacter);
+
+        String mortySpecies = mortyCharacter.getSpecies();
+        String mortyLocation = mortyCharacter.getLocation().getName();
+        String lastCharacterSpecies = lastCharacter.getSpecies();
+        String lastCharacterLocation = lastCharacter.getLocation().getName();
+
+        boolean sameSpecies = mortySpecies.equals(lastCharacterSpecies);
+        boolean sameLocation = mortyLocation.equals(lastCharacterLocation);
+
+        String result = "Результат сравнения Morty Smith с последним персонажем из эпизода " +
+                maxEpisode + " (" + episode.getName() + "):\n" +
+                "Morty Smith: Раса = " + mortySpecies + ", Местоположение = " +
+                mortyLocation + "\n" +
+                "Последний персонаж (" + lastCharacter.getName() + "): Раса = " +
+                lastCharacterSpecies + ", Местоположение = " + lastCharacterLocation + "\n" +
+                "Раса совпадает: " + sameSpecies + "\n" +
+                "Местоположение совпадает: " + sameLocation;
+
+        System.out.println(result);
+
+        Assertions.assertEquals(
+                mortySpecies,
+                lastCharacterSpecies,
+                "Раса не совпадает с " + name
+        );
+        Assertions.assertEquals(
+                mortyLocation,
+                lastCharacterLocation,
+                "Местоположение не совпадает с " + name
+        );
+    }
+
+    @Step("Информация о персонаже Морти Смит")
+    public void printMortySmithInfo(Result character) {
+        String info = "Информация о Морти Смит:\n" +
+                "Имя: " + character.getName() + "\n" +
+                "Статус: " + character.getStatus() + "\n" +
+                "Раса: " + character.getSpecies() + "\n" +
+                "Тип: " + character.getType() + "\n" +
+                "Пол: " + character.getGender() + "\n" +
+                "Местоположение: " + character.getLocation().getName() + "\n" +
+                "Происхождение: " + character.getOrigin().getName() + "\n" +
+                "Количество эпизодов: " + character.getEpisode().size();
+
+        System.out.println(info);
     }
 }

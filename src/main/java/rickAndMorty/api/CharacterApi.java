@@ -1,17 +1,24 @@
-package rickAndMorty.api.movie;
+package rickAndMorty.api;
 
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.ValidatableResponse;
+import utils.ConfigReader;
 
 import static io.restassured.RestAssured.given;
-import static rickAndMorty.constants.EnvConstants.RICKANDMORTY_URL;
 
-public class CharacterApi{
+public class CharacterApi {
+
+    private final String rickAndMortyUrl;
+
+    public CharacterApi() {
+        ConfigReader configReader = new ConfigReader();
+        this.rickAndMortyUrl = configReader.getRickAndMortyApiUrl();
+    }
 
     public ValidatableResponse getNameCharacter(String name) {
         return given()
-                .baseUri(RICKANDMORTY_URL)
+                .baseUri(rickAndMortyUrl)
                 .filter(new RequestLoggingFilter())
                 .filter(new ResponseLoggingFilter())
                 .queryParam("name", name)
@@ -20,9 +27,10 @@ public class CharacterApi{
                 .then();
     }
 
+
     public ValidatableResponse getEpisodeById(String episodeId) {
         return given()
-                .baseUri(RICKANDMORTY_URL)
+                .baseUri(rickAndMortyUrl)
                 .filter(new RequestLoggingFilter())
                 .filter(new ResponseLoggingFilter())
                 .when()
