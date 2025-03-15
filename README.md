@@ -43,31 +43,26 @@
    - src/main/java/reqres/pojoObject - содержит описание объектов
    - src/main/java/reqres/reqresApiClient - описание API
    - src/main/java/reqres/steps - содержит шаги теста
-   - src/test/java/reqres/reqresTest - содержит файл запуска тестов
+   - src/testAPI/java/reqres/testAPI - содержит файл запуска тестов
 2. src/main/java/rickAndMorty - тестовые данные по второй задаче
    - src/main/java/rickAndMorty/api - описание API
    - ssrc/main/java/rickAndMorty/models - содержит описание объектов
    - src/main/java/rickAndMorty/steps - содержит шаги теста
-   - src/test/java/rickAndMorty/characterTest - содержит файл запуска тестов
-   - src/test/resources/rickAndMorty/feature - описание фичи
+   - src/testAPI/java/rickAndMorty/characterTest - содержит файл запуска тестов
+   - src/testAPI/resources/rickAndMorty/feature - описание фичи
 
 ## Сценарии тестирования
-1. 
-    - 
-2. 
-    - 
-3. 
-    - 
-4. 
-    - 
-5. 
-    - 
+1. Создание пользователя с данными из JSON-файла
+2. Создание пользователя с измененными данными
+2. Получение информации о персонаже Morty Smith
+3. Сравнение персонажа Morty Smith с последним персонажем из последнего эпизода
+
 
 ## Запуск тестов и формирование отчетов
 
 - для запуска тестов выполнить команду:
 ````bash 
-    mvn clean test
+    mvn clean testAPI
 ````
 - для формирования отчета выполнить команду:
 ````bash
@@ -80,8 +75,6 @@
 
 ____
 Тестировщик: Пономарева Алла
-
-Почта: alla.ponomareva@ifellow.ru
 
 Репозиторий: https://github.com/AllaMP/IF_Ponomareva.git
 

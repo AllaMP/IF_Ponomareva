@@ -15,7 +15,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.qameta.allure.Step;
-import utils.ConfigReader;
 
 public class MortySmithInfoStep {
 
@@ -48,7 +47,8 @@ public class MortySmithInfoStep {
     public void getMaxEpisodeNumber() {
         Result characterResult = rickAndMortyCharacter.getResults().get(0);
         maxEpisode = getMaxEpisodeNumber(characterResult);
-        printMortySmithInfo(characterResult); // Вывод информации о Морти Смит
+        printMortySmithInfo(characterResult);
+
     }
 
     @То("Максимальный номер эпизода должен быть больше {int}")

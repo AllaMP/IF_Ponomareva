@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import reqres.pojoObject.UserRequest;
 import reqres.pojoObject.UserResponse;
 import reqres.reqresApiClient.ReqresApiClient;
-import utils.ConfigReader;
+
 
 public class ChangedByUserDataSteps {
 

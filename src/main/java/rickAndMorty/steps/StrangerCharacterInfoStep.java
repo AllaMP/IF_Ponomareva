@@ -5,6 +5,7 @@ import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.То;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import rickAndMorty.models.characterMortySmith.Result;
 import rickAndMorty.models.characterMortySmith.RickAndMortyCharacter;
 import rickAndMorty.models.characterStranger.SingleCharacter;
@@ -12,14 +13,21 @@ import rickAndMorty.models.episode.RickAndMortyEpisode;
 import java.util.List;
 import io.qameta.allure.Step;
 import rickAndMorty.api.CharacterApi;
+import utils.ConfigLoader;
 
+@DisplayName("Тесты для API Rick and Morty")
 public class StrangerCharacterInfoStep {
 
     private final CharacterApi characterApi = new CharacterApi();
     private RickAndMortyEpisode episode;
     private SingleCharacter lastCharacter;
     private Result mortyCharacter;
-    private final int maxEpisode = Integer.parseInt(System.getenv("MAX_EPISODE"));
+    private final int maxEpisode;
+
+    public StrangerCharacterInfoStep() {
+        ConfigLoader configLoader = new ConfigLoader();
+        this.maxEpisode = configLoader.getMaxEpisode();
+    }
 
     @Дано("Получаю последний эпизод, в котором появлялся Morty Smith")
     @Step("Получаю последний эпизод")

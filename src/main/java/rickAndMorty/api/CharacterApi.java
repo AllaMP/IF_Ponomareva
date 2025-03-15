@@ -3,7 +3,7 @@ package rickAndMorty.api;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.ValidatableResponse;
-import utils.ConfigReader;
+import utils.ConfigLoader;
 
 import static io.restassured.RestAssured.given;
 
@@ -12,8 +12,8 @@ public class CharacterApi {
     private final String rickAndMortyUrl;
 
     public CharacterApi() {
-        ConfigReader configReader = new ConfigReader();
-        this.rickAndMortyUrl = configReader.getRickAndMortyApiUrl();
+        ConfigLoader configLoader = new ConfigLoader();
+        this.rickAndMortyUrl = configLoader.getRickAndMortyApiUrl();
     }
 
     public ValidatableResponse getNameCharacter(String name) {
