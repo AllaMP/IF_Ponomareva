@@ -5,7 +5,6 @@ import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.То;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import rickAndMorty.models.characterMortySmith.Result;
 import rickAndMorty.models.characterMortySmith.RickAndMortyCharacter;
 import rickAndMorty.models.characterStranger.SingleCharacter;
@@ -15,7 +14,7 @@ import io.qameta.allure.Step;
 import rickAndMorty.api.CharacterApi;
 import utils.ConfigLoader;
 
-@DisplayName("Тесты для API Rick and Morty")
+
 public class StrangerCharacterInfoStep {
 
     private final CharacterApi characterApi = new CharacterApi();
