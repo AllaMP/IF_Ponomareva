@@ -1,9 +1,6 @@
 package rickAndMorty.steps;
 
-import io.cucumber.java.ru.Дано;
-import io.cucumber.java.ru.Когда;
-import io.cucumber.java.ru.То;
-import io.cucumber.java.ru.Тогда;
+import io.cucumber.java.ru.*;
 import org.junit.jupiter.api.Assertions;
 import org.apache.http.HttpStatus;
 import rickAndMorty.api.CharacterApi;
@@ -65,7 +62,6 @@ public class MortySmithInfoStep {
         System.out.println(result);
     }
 
-    @Step("Вывожу информацию о персонаже Морти Смит")
     public void printMortySmithInfo(Result character) {
         String info = "Информация о персонаже:\n" +
                 "Имя: " + character.getName() + "\n" +

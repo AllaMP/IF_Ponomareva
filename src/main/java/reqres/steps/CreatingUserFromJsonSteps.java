@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Тогда;
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import reqres.pojoObject.UserRequest;
 import reqres.pojoObject.UserResponse;
@@ -23,6 +25,7 @@ public class CreatingUserFromJsonSteps {
 
 
     @Дано("Пользователь с данными из JSON-файла {string}")
+    @Step("Пользователь с данными из JSON-файла {string}")
     public void createUserRequestFromJson(String filePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(filePath);
@@ -30,18 +33,21 @@ public class CreatingUserFromJsonSteps {
     }
 
     @Тогда("Отправляется запрос на создание нового пользователя")
+    @Step("Отправляется запрос на создание нового пользователя")
     public void sendCreateUserRequest() {
         response = reqresApiClient.createUser(userRequest);
     }
 
 
     @Тогда("Ожидаю статус-код ответа {int}")
+    @Step("Ожидаю статус-код ответа {int}")
     public void checkStatusCode(int expectedStatusCode) {
         int actualStatusCode = response.getStatusCode();
         Assertions.assertEquals(expectedStatusCode, actualStatusCode, "Неверный статус-код ответа");
     }
 
     @И("Пользователь успешно создан")
+    @Step("Пользователь успешно создан")
     public void deserializeResponse() {
         userResponse = response.as(UserResponse.class);
         Assertions.assertNotNull(userResponse.getId(), "ID пользователя не должен быть null");
@@ -49,6 +55,7 @@ public class CreatingUserFromJsonSteps {
     }
 
     @Тогда("Вывожу данные ответа")
+    @Step("Вывожу данные ответа")
     public void printResponseData() {
         System.out.println("\nДанные ответа:");
         System.out.println("ID: " + userResponse.getId());
